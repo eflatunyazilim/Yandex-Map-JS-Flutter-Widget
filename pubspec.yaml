@@ -10,6 +10,8 @@ dependencies:
   flutter:
     sdk: flutter
 
+  flutter_inappwebview: ^3.1.0
+
 dev_dependencies:
   flutter_test:
     sdk: flutter
@@ -21,8 +23,8 @@ dev_dependencies:
 flutter:
 
   # To add assets to your package, add an assets section, like this:
-  # assets:
-  #  - images/a_dot_burr.jpeg
+  assets:
+    - packages/yandex_maps_js/assets/html/map.html
   #  - images/a_dot_ham.jpeg
   #
   # For details regarding assets in packages, see

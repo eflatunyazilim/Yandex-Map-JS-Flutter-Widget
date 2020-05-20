@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Examples. Polygon editor</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <!--
+        Set your own API-key. Testing key is not valid for other web-sites and services.
+        Get your API-key on the Developer Dashboard: https://developer.tech.yandex.ru/keys/
+    -->
+    <script src="https://api-maps.yandex.ru/2.1/?lang=tr_TR&amp;apikey=f38023a9-7db2-4c8e-8ce8-85a43f54949c" type="text/javascript"></script>
+    <script type="text/javascript">
+		ymaps.ready(init);
+
+		function init() {
+			var myMap = new ymaps.Map("map", {
+					center: [41.2915813,36.2436581],    //samsun
+					zoom: 18,
+					type: 'yandex#hybrid',
+				    controls: []
+				});
+
+			// Creating a polygon with no vertices.
+			var myPolygon = new ymaps.Polygon([], {}, {
+				// The cursor in the mode for adding new vertices.
+				editorDrawingCursor: "crosshair",
+				// The maximum number of vertices.
+				editorMaxPoints: 7,
+				// Fill color.
+				fillColor: '#00FF00',
+				// Stroke color.
+				strokeColor: '#0000FF',
+				// The stroke width.
+				strokeWidth: 5,
+				draggable: true
+			});
+			// Adding the polygon to the map.
+			myMap.geoObjects.add(myPolygon);
+
+			// In the mode for adding new vertices, we change the stroke color of the polygon.
+			var stateMonitor = new ymaps.Monitor(myPolygon.editor.state);
+			stateMonitor.add("drawing", function (newValue) {
+				myPolygon.options.set("strokeColor", newValue ? '#FF0000' : '#0000FF');
+			});
+
+			// Turning on the edit mode with the possibility of adding new vertices.
+			myPolygon.editor.startDrawing();
+		}
+	</script>
+	<style>
+        html, body {
+            width: 100%; height: 100%; padding: 0; margin: 0;
+            font-family: Arial;
+        }
+
+        #map {
+            widht: 100%;
+            height: 100%;
+        }
+    </style>
+</head>
+<body>
+<div id="map"></div>
+</body>
+</html>

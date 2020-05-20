@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:yandex_maps_js/YandexJSMap.dart';
+import 'package:yandex_maps_js/yandex_maps_js.dart';
 
 void main() => runApp(MyApp());
 
@@ -40,26 +40,7 @@ class _MyHomePageState extends State<MyHomePage> {
       appBar: AppBar(
         title: Text(widget.title),
       ),
-      body: Center(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: <Widget>[
-            Text(
-              'You have pushed the button this many times:',
-            ),
-            Text(
-              '$_counter',
-              style: Theme.of(context).textTheme.display1,
-            ),
-            YandexJSMap()
-          ],
-        ),
-      ),
-      floatingActionButton: FloatingActionButton(
-        onPressed: _incrementCounter,
-        tooltip: 'Increment',
-        child: Icon(Icons.add),
-      ), // This trailing comma makes auto-formatting nicer for build methods.
+      body: YandexJSMap(),// This trailing comma makes auto-formatting nicer for build methods.
     );
   }
 }
