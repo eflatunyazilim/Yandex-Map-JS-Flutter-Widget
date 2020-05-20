@@ -1,7 +1,6 @@
 name: yandex_maps_js
 description: Yandex Map with Js Api
 version: 0.0.1
-author: Savas ADAR <info@eflatunyazilim.com>
 homepage: https://github.com/eflatunyazilim/Yandex-Map-JS-Flutter-Widget
 
 environment:
