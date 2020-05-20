@@ -1,4 +1,4 @@
-# yandexmapsjs
+# yandex_maps_js
 
 Yandex Map with Js Api
 
