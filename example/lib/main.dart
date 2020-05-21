@@ -26,13 +26,8 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
-  int _counter = 0;
 
-  void _incrementCounter() {
-    setState(() {
-      _counter++;
-    });
-  }
+  YandexMapController _controller;
 
   @override
   Widget build(BuildContext context) {
@@ -40,7 +35,30 @@ class _MyHomePageState extends State<MyHomePage> {
       appBar: AppBar(
         title: Text(widget.title),
       ),
-      body: YandexJSMap(),// This trailing comma makes auto-formatting nicer for build methods.
+      body: Stack(
+        children: <Widget>[
+          YandexJSMap(
+            onMapCreated: (YandexMapController controller) {
+              _controller = controller;
+            },
+          ),
+          Positioned(
+            bottom: 10,
+            right: 10,
+            child: InkWell(
+              onTap: (){
+                _controller.yandexJSMapState.focusLocation(0, 0);
+              },
+              child: Container(
+                height: 50,
+                width: 50,
+                color: Colors.white,
+                child: Icon(Icons.my_location),
+              ),
+            ),
+          )
+        ],
+      ),// This trailing comma makes auto-formatting nicer for build methods.
     );
   }
 }

@@ -10,9 +10,10 @@
     <script src="https://api-maps.yandex.ru/2.1/?lang=tr_TR&amp;apikey=f38023a9-7db2-4c8e-8ce8-85a43f54949c" type="text/javascript"></script>
     <script type="text/javascript">
 		ymaps.ready(init);
-
+		var myMap;
+		
 		function init() {
-			var myMap = new ymaps.Map("map", {
+			myMap = new ymaps.Map("map", {
 					center: [41.2915813,36.2436581],    //samsun
 					zoom: 18,
 					type: 'yandex#hybrid',
