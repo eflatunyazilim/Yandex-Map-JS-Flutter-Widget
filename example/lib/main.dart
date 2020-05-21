@@ -47,7 +47,7 @@ class _MyHomePageState extends State<MyHomePage> {
             right: 10,
             child: InkWell(
               onTap: (){
-                _controller.yandexJSMapState.focusLocation(0, 0);
+                _controller.yandexJSMapState.setMapType(MapType.Hybrid);
               },
               child: Container(
                 height: 50,
