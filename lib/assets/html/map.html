@@ -46,6 +46,14 @@
 			// Turning on the edit mode with the possibility of adding new vertices.
 			myPolygon.editor.startDrawing();
 		}
+
+		function dragEnable(){
+		    myMap.behaviors.enable('drag');
+		}
+
+		function dragDisable(){
+		    myMap.behaviors.disable('drag');
+		}
 	</script>
 	<style>
         html, body {

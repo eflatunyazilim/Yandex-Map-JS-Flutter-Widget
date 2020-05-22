@@ -47,13 +47,30 @@ class _MyHomePageState extends State<MyHomePage> {
             right: 10,
             child: InkWell(
               onTap: (){
-                _controller.yandexJSMapState.setMapType(MapType.Hybrid);
+                _controller.yandexJSMapState.evaluateJavascript("dragDisable();");
+                //_controller.yandexJSMapState.focusLocation(39.7654539,30.474774);
               },
               child: Container(
                 height: 50,
                 width: 50,
                 color: Colors.white,
                 child: Icon(Icons.my_location),
+              ),
+            ),
+          ),
+          Positioned(
+            bottom: 10,
+            right: 70,
+            child: InkWell(
+              onTap: (){
+                _controller.yandexJSMapState.evaluateJavascript("dragEnable();");
+                //_controller.yandexJSMapState.focusLocation(39.7654539,30.474774);
+              },
+              child: Container(
+                height: 50,
+                width: 50,
+                color: Colors.white,
+                child: Icon(Icons.check),
               ),
             ),
           )

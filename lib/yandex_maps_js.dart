@@ -26,6 +26,11 @@ class _YandexJSMapState extends State<YandexJSMap> {
     return Container(
       child: InAppWebView(
         initialFile: "packages/yandex_maps_js/assets/html/map.html",
+        initialOptions: InAppWebViewGroupOptions(
+          crossPlatform: InAppWebViewOptions(
+            debuggingEnabled: true,
+          ),
+        ),
         onWebViewCreated: (InAppWebViewController controller) {
           _controller = controller;
         },
@@ -40,8 +45,25 @@ class _YandexJSMapState extends State<YandexJSMap> {
     );
   }
 
+  evaluateJavascript(String js) {
+    _controller.evaluateJavascript(source: js).then((value){
+      print('result: $value');
+      /*
+      if(onSuccess != null)
+        onSuccess(value);
+      */
+    }, onError: (error){
+      print('error: $error');
+      /*
+      if(onError != null)
+        onError(error);
+
+       */
+    });
+  }
+
   focusLocation(double lat, double lng) {
-    _controller.evaluateJavascript(source: "myMap.setType('yandex#map', {checkZoomRange: true});").then((value){
+    _controller.evaluateJavascript(source: "myMap.setCenter([$lat, $lng], 3, {checkZoomRange: true});").then((value){
       print('result: $value');
     }, onError: (error){
       print('error: $error');
@@ -54,13 +76,13 @@ class _YandexJSMapState extends State<YandexJSMap> {
     switch(mapType){
 
       case MapType.Map:
-        type = "yandex#map";
+        typeStr = "yandex#map";
         break;
       case MapType.Satellite:
-        type = "yandex#satellite";
+        typeStr = "yandex#satellite";
         break;
       case MapType.Hybrid:
-        type = "yandex#hybrid";
+        typeStr = "yandex#hybrid";
         break;
     }
 
