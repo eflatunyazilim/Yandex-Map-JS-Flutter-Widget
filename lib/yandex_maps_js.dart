@@ -45,20 +45,15 @@ class _YandexJSMapState extends State<YandexJSMap> {
     );
   }
 
-  evaluateJavascript(String js) {
+  evaluateJavascript(String js, {Function(dynamic) onSuccess, Function(dynamic) onError}) {
     _controller.evaluateJavascript(source: js).then((value){
       print('result: $value');
-      /*
       if(onSuccess != null)
         onSuccess(value);
-      */
     }, onError: (error){
       print('error: $error');
-      /*
       if(onError != null)
         onError(error);
-
-       */
     });
   }
 
@@ -74,7 +69,6 @@ class _YandexJSMapState extends State<YandexJSMap> {
     String typeStr = "yandex#map";
 
     switch(mapType){
-
       case MapType.Map:
         typeStr = "yandex#map";
         break;
@@ -96,6 +90,5 @@ class _YandexJSMapState extends State<YandexJSMap> {
 
 class YandexMapController {
   final _YandexJSMapState yandexJSMapState;
-
   YandexMapController(this.yandexJSMapState);
 }
