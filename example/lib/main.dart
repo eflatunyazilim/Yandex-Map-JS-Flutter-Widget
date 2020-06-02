@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:yandex_maps_js/models/Location.dart';
 import 'package:yandex_maps_js/yandex_maps_js.dart';
+import 'package:yandex_maps_js/models/Polygon.dart';
 
 void main() => runApp(MyApp());
 
@@ -46,9 +48,9 @@ class _MyHomePageState extends State<MyHomePage> {
             bottom: 10,
             right: 10,
             child: InkWell(
+              highlightColor: Colors.blue,
               onTap: (){
-                _controller.yandexJSMapState.evaluateJavascript("dragDisable();");
-                //_controller.yandexJSMapState.focusLocation(39.7654539,30.474774);
+                _controller.yandexJSMapState.drawPolygon(5, '#00FF00', '#00FFFF', 2, true);
               },
               child: Container(
                 height: 50,
@@ -58,24 +60,18 @@ class _MyHomePageState extends State<MyHomePage> {
               ),
             ),
           ),
-          Positioned(
-            bottom: 10,
-            right: 70,
-            child: InkWell(
-              onTap: (){
-                _controller.yandexJSMapState.evaluateJavascript("dragEnable();");
-                //_controller.yandexJSMapState.focusLocation(39.7654539,30.474774);
-              },
-              child: Container(
-                height: 50,
-                width: 50,
-                color: Colors.white,
-                child: Icon(Icons.check),
-              ),
-            ),
-          )
         ],
       ),// This trailing comma makes auto-formatting nicer for build methods.
     );
+  }
+
+  addPolygon(){
+    List<Location> list = [];
+    list.add(Location(41.29178028941701,36.2408269831327));
+    list.add(Location(41.29288482108242,36.24135269609962));
+    list.add(Location(41.29202304524475,36.24252750364814));
+    list.add(Location(41.29178028941701,36.2408269831327));
+
+    _controller.yandexJSMapState.addPolygon(Polygon(list), '#0000FF55', '#00FF0055', 4, true);
   }
 }

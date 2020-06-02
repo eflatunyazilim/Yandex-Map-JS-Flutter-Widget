@@ -10,7 +10,7 @@ dependencies:
   flutter:
     sdk: flutter
 
-  flutter_inappwebview: ^3.1.0
+  flutter_inappwebview: ^3.3.0
 
 dev_dependencies:
   flutter_test:

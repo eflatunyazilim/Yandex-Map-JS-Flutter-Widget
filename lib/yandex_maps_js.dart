@@ -1,9 +1,10 @@
-
 import 'package:flutter/widgets.dart';
 import 'package:flutter_inappwebview/flutter_inappwebview.dart';
 import 'package:yandex_maps_js/models/Location.dart';
+import 'package:yandex_maps_js/models/Polygon.dart';
 
 typedef void MapCreatedCallback(YandexMapController controller);
+typedef void PolygonUpdateCallback();
 enum MapType { Map, Satellite, Hybrid }
 
 class YandexJSMap extends StatefulWidget {
@@ -21,18 +22,19 @@ class _YandexJSMapState extends State<YandexJSMap> {
 
   InAppWebViewController _controller;
 
+  List<Polygon> _polygons;
+
   @override
   Widget build(BuildContext context) {
     return Container(
       child: InAppWebView(
         initialFile: "packages/yandex_maps_js/assets/html/map.html",
-        initialOptions: InAppWebViewGroupOptions(
-          crossPlatform: InAppWebViewOptions(
-            debuggingEnabled: true,
-          ),
-        ),
         onWebViewCreated: (InAppWebViewController controller) {
           _controller = controller;
+
+          _controller.addJavaScriptHandler(handlerName:'handlerPolygon', callback: (args) {
+            print(args[0]);
+          });
         },
         onProgressChanged: (InAppWebViewController controller, int progress) {
           if(progress == 100)
@@ -86,6 +88,36 @@ class _YandexJSMapState extends State<YandexJSMap> {
       print('error: $error');
     });
   }
+
+  dragEnable(Function(dynamic) onSuccess, Function(dynamic) onError) {
+    evaluateJavascript("myMap.behaviors.enable('drag');", onSuccess: onSuccess, onError: onError);
+  }
+
+  dragDisable(Function(dynamic) onSuccess, Function(dynamic) onError){
+    evaluateJavascript("myMap.behaviors.disable('drag');", onSuccess: onSuccess, onError: onError);
+  }
+
+  List<Polygon> getPolygons() {
+    return _polygons;
+  }
+
+  drawPolygon(int pointCount, String fillColor, String strokeColor, int strokeWidth, bool draggable){
+    evaluateJavascript("drawPolygon($pointCount, '$fillColor', '$strokeColor', $strokeWidth, ${draggable.toString()});");
+  }
+
+  addPolygon(Polygon polygon, String fillColor, String strokeColor, int strokeWidth, bool draggable){
+    var points = [];
+    for(var point in polygon.points) {
+      points.add([point.lat, point.lng]);
+    }
+    evaluateJavascript("addPolygon(${[points]}, '$fillColor', '$strokeColor', $strokeWidth, ${draggable.toString()});");
+  }
+
+  clearPolygons(){
+    _polygons.clear();
+    evaluateJavascript("clearPolygons();");
+  }
+
 }
 
 class YandexMapController {
